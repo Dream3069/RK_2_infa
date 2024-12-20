@@ -1,25 +1,23 @@
 #!/bin/bash
 
-if [ $# -ne 2 ]; then
-  echo "Пожалуйста, укажите директорию и расширение файлов."
-  exit 1
+if [ "$#" -ne 2 ]; then
+    echo "Пожалуйста, укажите директорию и расширение файлов."
+    exit 1
 fi
 
-directory="$1"
-extension="$2"
+DIRECTORY=$1
+EXTENSION=$2
 
-if [ ! -d "$directory" ]; then
-  echo "Директория не найдена."
-  exit 1
+if [ ! -d "$DIRECTORY" ]; then
+    echo "Директория не найдена."
+    exit 1
 fi
 
-found_files=$(find "$directory" -maxdepth -1 -name "*.$extension" 2>/dev/null)
+FILES=$(find "$DIRECTORY" -type f -name "*.$EXTENSION")
 
-if [ -z "$found_files" ]; then
-  echo "Файлы с расширением $extension не найдены."
+if [ -z "$FILES" ]; then
+    echo "Файлы с расширением $EXTENSION не найдены."
 else
-  echo "Найденные файлы:"
-  echo "$found_files"
+    echo "Найденные файлы с расширением $EXTENSION:"
+    echo "$FILES"
 fi
-
-exit 0
